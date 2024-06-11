@@ -71,25 +71,28 @@ def normalize_words(word: str) -> str:
     return new_word
 
 if __name__ == "__main__":
-    import stages.tp_menu as tp_m
-    import stages.tp_tabla_elemento as tp_te
-    import stages.tp_elemento_tabla as tp_et
-    import stages.tp_gameover as tp_go
-    import stages.tabla_to_grid as t_grid
+    import stages.tp_menu
+    import stages.txt_elementos
+        
+    import stages.tp_tabla_elemento
+    import stages.tp_elemento_tabla
+    import stages.tp_simbolo_elemento_both
+    
+    import stages.tp_gameover
         
     while stage != None:
         while stage == 0: # MENU
             mouse_data = mouse_data_reader(mouse_data)
-            game_data = tp_m.menu(mouse_data, game_data)
+            game_data = stages.tp_menu.menu(mouse_data, game_data)
             stage = game_data[0] 
 
             pygame.display.update()
             clock.tick(60)
 
-        grid, grid_data = t_grid.tabla_to_grid(dificultades[game_data[2]])
+        grid, grid_data = stages.txt_elementos.tabla_to_grid(dificultades[game_data[2]])
         while stage == 1: # TABLA - ELEMENTO
             mouse_data = mouse_data_reader(mouse_data)
-            game_data = tp_te.game(mouse_data, game_data, grid, grid_data)
+            game_data = stages.tp_tabla_elemento.game(mouse_data, game_data, grid, grid_data)
             stage = game_data[0]
 
             pygame.display.update()
@@ -97,15 +100,31 @@ if __name__ == "__main__":
 
         while stage == 2: # ELEMENTO - TABLA
             mouse_data = mouse_data_reader(mouse_data)
-            game_data = tp_et.game(mouse_data, game_data, grid, grid_data)
+            game_data = stages.tp_elemento_tabla.game(mouse_data, game_data, grid, grid_data)
+            stage = game_data[0]
+
+            pygame.display.update()
+            clock.tick(60)
+            
+        while stage == 3: # ELEMENTO - SIMBOLO
+            mouse_data = mouse_data_reader(mouse_data)
+            game_data = stages.tp_simbolo_elemento_both.game(mouse_data, game_data, grid, grid_data)
+            stage = game_data[0]
+
+            pygame.display.update()
+            clock.tick(60)
+            
+        while stage == 4: # SIMBOLO - ELEMENTO
+            mouse_data = mouse_data_reader(mouse_data)
+            game_data = stages.tp_simbolo_elemento_both.game(mouse_data, game_data, grid, grid_data)
             stage = game_data[0]
 
             pygame.display.update()
             clock.tick(60)
 
-        while stage == 3: # GAME OVER
+        while stage == 5: # GAME OVER
             mouse_data = mouse_data_reader(mouse_data)
-            game_data = tp_go.game_over(mouse_data, game_data, grid, grid_data)
+            game_data = stages.tp_gameover.game_over(mouse_data, game_data, grid, grid_data)
             stage = game_data[0]
 
             pygame.display.update()
