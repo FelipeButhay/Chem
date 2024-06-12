@@ -46,16 +46,16 @@ def game_over(mouse_data: list, game_data: list, grid: list, grid_data:list) -> 
             if nom_sim == 0: # NOMBRE
                 multiplier = 2.4
             elif nom_sim == 1: # SIMBOLO
-                multiplier = 1.4
+                multiplier = 1.5
         case 1: # SEÑALAR EN LA TABLA
             multiplier = 1
         case 2: # ESCRIBIR EL SIMBOLO A PARTIR DEL NOMBRE
-            multiplier = 1.2
+            multiplier = 1.4
         case 3: # ESCRIBIR EL NOMBRE A PARTIR DEL SIMBOLO
             multiplier = 2
             
-    score = multiplier*(60*8100*(right/total)*(3**(dificulty)))/t
-    # score = multiplier*(60*8100*(right/total)*(3**math.log2(dificulty+1)))/t
+    right_percentage = right/total
+    score = multiplier*(60*8100*(2**(1/(2*right_percentage+1))-1-right_percentage/3.8474)*((math.e**.5)**(dificulty)))/(t**.5)
         
     tp.screen.fill("white")
     
